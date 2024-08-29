@@ -1,0 +1,23 @@
+# permissions for end users to view openstackmachines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: openstack-infrastructure-provider
+    app.kubernetes.io/managed-by: kustomize
+  name: openstackmachine-viewer-role
+rules:
+- apiGroups:
+  - infrastructure.cluster.x-k8s.io
+  resources:
+  - openstackmachines
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - infrastructure.cluster.x-k8s.io
+  resources:
+  - openstackmachines/status
+  verbs:
+  - get
