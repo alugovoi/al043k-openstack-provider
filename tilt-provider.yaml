@@ -1,0 +1,6 @@
+name: al043k 
+config:
+  image: controller:latest # change to remote image name if desired
+  label: CAPO
+  live_reload_deps: ["main.go", "go.mod", "go.sum", "api", "internal/controllers", "pkg"]
+  go_main: "cmd/main.go"

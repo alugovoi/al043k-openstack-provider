@@ -18,6 +18,13 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
+)
+
+const (
+    // ClusterFinalizer allows OpenstackClusterReconciler to clean up resources associated with OpenstackCluster before
+    // removing it from the apiserver.
+    ClusterFinalizer = "openstackcluster.infrastructure.cluster.x-k8s.io"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -29,13 +36,17 @@ type OpenstackClusterSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of OpenstackCluster. Edit openstackcluster_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+    // +optional
+    ControlPlaneEndpoint *clusterv1.APIEndpoint `json:"controlPlaneEndpoint"`
+    LBOpenstackNetwork   string                 `json:"lbNetwork"`
 }
 
 // OpenstackClusterStatus defines the observed state of OpenstackCluster
 type OpenstackClusterStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+    Ready      bool                 `json:"ready"`
+    Conditions clusterv1.Conditions `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true

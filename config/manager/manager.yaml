@@ -91,5 +91,13 @@ spec:
           requests:
             cpu: 10m
             memory: 64Mi
+        volumeMounts:
+        - name: clouds
+          mountPath: "/etc/openstack/"
+          subKey: "clouds.yaml"
+      volumes:
+      - name: "clouds"
+        secret:
+          secretName: "clouds"
       serviceAccountName: controller-manager
       terminationGracePeriodSeconds: 10
